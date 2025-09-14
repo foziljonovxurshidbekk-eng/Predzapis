@@ -16,6 +16,7 @@
     a{color:inherit;text-decoration:none}
     .container{max-width:980px;margin:0 auto;padding:0 18px}
 
+    /* NAV */
     .nav{position:sticky;top:0;z-index:40;background:linear-gradient(180deg,rgba(6,64,43,.9),rgba(6,64,43,.7));backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
     .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
     .brand{display:flex;gap:10px;align-items:center}
@@ -25,10 +26,12 @@
     .btn:hover{transform:translateY(-1px);box-shadow:var(--shadow-soft)}
     .btn.ghost{background:transparent;color:var(--ink)}
 
+    /* HERO */
     .hero{padding:70px 0 24px;position:relative}
     .hero::before{content:"";position:absolute;inset:-20% -10% auto -10%;height:70%;background:radial-gradient(1200px 520px at 30% 10%, rgba(241,218,178,.15), transparent 60%);pointer-events:none;z-index:-1}
     .hero h2{font-size:34px;line-height:1.15;margin:0 0 10px}
 
+    /* SECTIONS */
     .section{padding:22px 0}
     .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
     .card{background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow-soft)}
@@ -36,6 +39,7 @@
     .muted{color:var(--muted)}
     .list{display:grid;gap:8px}
 
+    /* FORM */
     .form-area{margin:18px 0;display:grid;gap:14px;padding:18px;border:1px solid var(--line);border-radius:var(--radius);
       background:linear-gradient(0deg,rgba(6,64,43,.65),rgba(6,64,43,.65)),radial-gradient(1000px 360px at 90% 0%, rgba(241,218,178,.18), transparent 50%);
       box-shadow:var(--shadow);
@@ -54,7 +58,7 @@
     .success{padding:16px;border-radius:14px;border:1px solid var(--line);background:rgba(241,218,178,.08)}
     .footer{padding:30px 0;color:var(--muted);text-align:center;border-top:1px solid var(--line)}
 
-    /* Goals layout */
+    /* GOALS */
     #goals{display:grid;grid-template-columns:1fr;gap:10px}
     #goals .check{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.03)}
     #goals .check input[type="checkbox"]{width:18px;height:18px;accent-color:var(--sand)}
@@ -65,6 +69,7 @@
   </style>
 </head>
 <body>
+  <!-- NAV -->
   <nav class="nav">
     <div class="nav-inner container">
       <div class="brand">
@@ -78,6 +83,7 @@
     </div>
   </nav>
 
+  <!-- HERO -->
   <header class="hero">
     <div class="container">
       <h2>Shaxsiy brend so‘rovnomasiga navbatga yozilish uchun atiga 3 daqiqalik so‘rovnomani to‘ldiring</h2>
@@ -88,6 +94,7 @@
     </div>
   </header>
 
+  <!-- WHO/REVIEW -->
   <section class="container section">
     <div class="grid">
       <div class="card">
@@ -107,6 +114,7 @@
     </div>
   </section>
 
+  <!-- FORM -->
   <section id="form" class="container section">
     <h3 style="margin:0 0 8px">Navbatga yoziling — 3 daqiqa</h3>
 
@@ -122,8 +130,8 @@
         </div>
         <div>
           <label for="phone">Telefon *</label>
-          <input id="phone" name="phone" type="tel" required pattern="^\\+?\\d[\\d\\s\\-]{6,}$" placeholder="+998 90 123 45 67">
-          <div class="error" id="err-phone">Telefonni to‘g‘ri kiriting</div>
+          <input id="phone" name="phone" type="tel" required inputmode="numeric" placeholder="+998 90 123 45 67">
+          <div class="error" id="err-phone">Telefon raqamini 7–15 ta raqam bilan kiriting</div>
         </div>
       </div>
 
@@ -223,62 +231,76 @@
   <script>
     const ENDPOINT = "https://script.google.com/macros/s/AKfycbzBWBuPIJ5NQpmnQLT5gSINW7KnUXaRoKTSRfvDdncdUeBWfNAl6j2QSwOJMt2_JXkT2A/exec";
 
-    const form = document.getElementById('leadForm');
-    const btn = document.getElementById('submitBtn');
-    const ok = document.getElementById('formSuccess');
-    const errBox = document.getElementById('formError');
+    const form    = document.getElementById('leadForm');
+    const btn     = document.getElementById('submitBtn');
+    const ok      = document.getElementById('formSuccess');
+    const errBox  = document.getElementById('formError');
     const contact = document.getElementById('contact');
-    const slotWrap = document.getElementById('slotWrap');
+    const slotWrap= document.getElementById('slotWrap');
     const profile = document.getElementById('profile');
 
-    const otherChk = document.getElementById('goal-other-chk');
+    const otherChk  = document.getElementById('goal-other-chk');
     const otherWrap = document.getElementById('goal-other-wrap');
     const otherText = document.getElementById('goal-other-text');
 
     contact.addEventListener('change', ()=>{
+      // Faqat qo‘ng‘iroq bo‘lsa vaqt slotini ko‘rsatamiz
       slotWrap.classList.toggle('hidden', contact.value !== 'Qo‘ng‘iroq');
     });
     otherChk.addEventListener('change', ()=>{
+      // "Boshqa…" tanlansa, matn maydonini ko‘rsatamiz va majburiy qilamiz
       const on = otherChk.checked;
       otherWrap.style.display = on ? 'flex' : 'none';
       otherText.required = on;
       if(!on) otherText.value = '';
     });
 
-    function qs(id){return document.getElementById(id)}
-    function showErr(id, show){ const el = qs(id); if(!el) return; el.style.display = show ? 'block':'none' }
-
     function validInstagram(v){
       const s = (v||'').trim();
-      if (!s) return false;
-      if (s.startsWith('@')) return s.length > 1;
-      if (/^https?:\/\/(www\.)?instagram\.com\/[A-Za-z0-9._-]+\/?(\?.*)?$/.test(s)) return true;
-      return false;
+      if(!s) return false;
+      if(s.startsWith('@')) return s.length>1;
+      return /^https?:\/\/(www\.)?instagram\.com\/[A-Za-z0-9._-]+\/?(\?.*)?$/.test(s);
+    }
+    function showErr(id, show){
+      const el = document.getElementById(id);
+      if(el) el.style.display = show ? 'block' : 'none';
     }
 
     function validate(){
       let valid = true;
-      [['name','err-name'],['phone','err-phone'],['telegram','err-telegram'],['role','err-role'],['income','err-income'],['contact','err-contact']]
+
+      // Bo‘sh emasligini tekshiramiz (phone alohida)
+      [['name','err-name'],['telegram','err-telegram'],['role','err-role'],['income','err-income'],['contact','err-contact']]
         .forEach(([f,eid])=>{
-          const el = qs(f);
+          const el = document.getElementById(f);
           const v = (el.value||'').trim();
-          const okk = el.checkValidity ? el.checkValidity() : v.length>0;
-          const pass = v.length>0 && okk!==false;
+          const pass = v.length>0;
           showErr(eid, !pass);
           if(!pass) valid=false;
         });
 
+      // Telefon — faqat raqamlar soni (7–15)
+      const digits = (document.getElementById('phone').value||'').replace(/\D/g,'');
+      const phoneOk = digits.length>=7 && digits.length<=15;
+      showErr('err-phone', !phoneOk);
+      if(!phoneOk) valid=false;
+
+      // Instagram
       const ipass = validInstagram(profile.value);
       showErr('err-profile', !ipass);
       if(!ipass) valid=false;
 
-      const goals = Array.from(document.querySelectorAll('input[name="goals"]:checked'));
-      const otherOn = otherChk.checked;
-      const otherOk = !otherOn || (otherText.value.trim().length>1);
-      showErr('err-goals', goals.length===0 || !otherOk);
-      if(goals.length===0 || !otherOk) valid=false;
+      // Maqsad(lar) — "Boshqa…" bilan birga
+      const baseGoalsCount = document.querySelectorAll('input[name="goals"][type="checkbox"]:checked').length;
+      const otherOn  = otherChk.checked;
+      const otherHas = (otherText.value||'').trim().length>0;
+      const hasAnyGoal = (baseGoalsCount>0) || (otherOn && otherHas);
+      showErr('err-goals', !hasAnyGoal);
+      if(!hasAnyGoal) valid=false;
 
-      if ((qs('hp').value||'').trim().length>0) return false; // honeypot
+      // Honeypot (botlarni to‘xtatish)
+      if ((document.getElementById('hp').value||'').trim().length>0) return false;
+
       return valid;
     }
 
@@ -287,12 +309,14 @@
       errBox.style.display='none';
       ok.classList.add('hidden');
       if(!validate()) return;
-      btn.disabled = true; btn.textContent = "Yuborilyapti...";
 
+      btn.disabled=true; btn.textContent="Yuborilyapti...";
+
+      // Ma'lumotlarni yuborish
       const fd = new FormData(form);
       const params = new URLSearchParams(window.location.search);
-      fd.append('utm_source', params.get('utm_source') || '');
-      fd.append('utm_medium', params.get('utm_medium') || '');
+      fd.append('utm_source',   params.get('utm_source')   || '');
+      fd.append('utm_medium',   params.get('utm_medium')   || '');
       fd.append('utm_campaign', params.get('utm_campaign') || '');
       fd.append('referer', document.referrer || '');
       fd.append('ua', navigator.userAgent || '');
@@ -301,12 +325,19 @@
         const res = await fetch(ENDPOINT, { method:'POST', body: fd });
         if(!res.ok) throw new Error('Network');
         ok.classList.remove('hidden');
-        form.querySelectorAll('input, select, textarea, button').forEach(el=>{ if(el.id!=='submitBtn') el.disabled = true; });
+        // Yuborilgach, formani "lock" qilamiz
+        form.querySelectorAll('input, select, textarea, button').forEach(el=>{
+          if(el.id!=='submitBtn') el.disabled = true;
+        });
         btn.classList.add('hidden');
-      }catch(e){ errBox.style.display='block'; }
-      finally{ btn.disabled=false; btn.textContent = "Yuborish"; }
+      }catch(err){
+        errBox.style.display='block';
+      }finally{
+        btn.disabled=false; btn.textContent="Yuborish";
+      }
     });
 
+    // Ichki linklar silliq skroll
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
       a.addEventListener('click', e=>{
         const id = a.getAttribute('href').slice(1);
