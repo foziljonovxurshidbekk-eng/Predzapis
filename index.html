@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Xurshidbek — Navbatga yozilish | Shaxsiy brend</title>
+  <meta name="description" content="Shaxsiy brend so‘rovnomasiga navbatga yozilish — 3 daqiqalik qisqa forma.">
+  <meta name="theme-color" content="#06402B">
+  <style>
+    :root{ --green:#06402B; --white:#FFFFFF; --sand:#F1DAB2; --bg:#04271B; --ink:#E7F5ED; --muted:#CFE7DB;
+           --line:rgba(241,218,178,0.25); --radius:16px;
+           --shadow:0 1px 1px rgba(0,0,0,.08), 0 8px 28px rgba(0,0,0,.24);
+           --shadow-soft:0 1px 1px rgba(0,0,0,.06), 0 6px 20px rgba(0,0,0,.18); }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--ink)}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:980px;margin:0 auto;padding:0 18px}
+    .nav{position:sticky;top:0;z-index:40;background:linear-gradient(180deg,rgba(6,64,43,.9),rgba(6,64,43,.7));backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;gap:10px;align-items:center}
+    .logo{width:12px;height:12px;border-radius:12px;background:conic-gradient(from 140deg,var(--sand),#fff0, var(--white), var(--sand));box-shadow:0 0 0 4px rgba(241,218,178,.18)}
+    .brand h1{font-size:16px;margin:0 0 0 2px;font-weight:700;letter-spacing:.3px}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:12px;border:1px solid var(--line);transition:.2s ease;background:var(--sand);color:#1B2A22;font-weight:700}
+    .btn:hover{transform:translateY(-1px);box-shadow:var(--shadow-soft)}
+    .btn.ghost{background:transparent;color:var(--ink)}
+    .hero{padding:70px 0 24px;position:relative}
+    .hero::before{content:"";position:absolute;inset:-20% -10% auto -10%;height:70%;background:radial-gradient(1200px 520px at 30% 10%, rgba(241,218,178,.15), transparent 60%);pointer-events:none;z-index:-1}
+    .hero h2{font-size:34px;line-height:1.15;margin:0 0 10px}
+    .section{padding:22px 0}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow-soft)}
+    .card h3{margin:0 0 6px;font-size:18px}
+    .muted{color:var(--muted)}
+    .list{display:grid;gap:8px}
+    .form-area{margin:18px 0;display:grid;gap:14px;padding:18px;border:1px solid var(--line);border-radius:var(--radius);
+      background:linear-gradient(0deg,rgba(6,64,43,.65),rgba(6,64,43,.65)),radial-gradient(1000px 360px at 90% 0%, rgba(241,218,178,.18), transparent 50%);
+      box-shadow:var(--shadow);
+    }
+    .row{display:grid;gap:10px}
+    .row.cols-2{grid-template-columns:1fr 1fr}
+    .row.cols-3{grid-template-columns:1fr 1fr 1fr}
+    label{font-weight:600}
+    input, select, textarea{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--white);outline:none;transition:.15s ease}
+    input::placeholder, textarea::placeholder{color:#e6f3ed99}
+    input:focus, select:focus, textarea:focus{box-shadow:0 0 0 3px rgba(241,218,178,.25)}
+    textarea{min-height:100px;resize:vertical}
+    .actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .error{color:#ffd7d7;font-size:13px;display:none}
+    .hidden{display:none !important}
+    .success{padding:16px;border-radius:14px;border:1px solid var(--line);background:rgba(241,218,178,.08)}
+    .sticky-cta{position:fixed;inset:auto 12px 12px 12px;z-index:60;display:flex;justify-content:center}
+    .sticky-cta .inner{display:flex;gap:10px;align-items:center;background:rgba(6,64,43,.88);border:1px solid var(--line);backdrop-filter:blur(10px);padding:10px 12px;border-radius:14px;box-shadow:var(--shadow-soft)}
+    .sticky-cta .txt{font-size:14px;color:var(--muted)}
+    .footer{padding:30px 0;color:var(--muted);text-align:center;border-top:1px solid var(--line)}
+    /* --- Goals: neat checkbox rows --- */
+    #goals{display:grid;grid-template-columns:1fr;gap:10px}
+    #goals .check{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.03)}
+    #goals .check input[type="checkbox"]{width:18px;height:18px;accent-color:var(--sand)}
+    @media (min-width:700px){ #goals{grid-template-columns:1fr 1fr} }
+    @media (max-width:980px){ .hero h2{font-size:28px} .grid{grid-template-columns:1fr} .nav-inner{padding:12px 0} }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner container">
+      <div class="brand">
+        <span class="logo"></span>
+        <h1>Xurshidbek · Personal Branding</h1>
+      </div>
+      <div style="display:flex;gap:10px">
+        <a href="#form" class="btn">Navbatga yozilish</a>
+        <a class="btn ghost" href="https://t.me/Xurshidbek_foziljonov" target="_blank" rel="noopener">Telegram</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <h2>Shaxsiy brend so‘rovnomasiga navbatga yozilish uchun atiga 3 daqiqalik so‘rovnomani to‘ldiring</h2>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+        <a href="#form" class="btn">So‘rovnomani boshlash</a>
+        <a href="https://www.instagram.com/xurshidbek.foziljonov?igsh=MTU1MGIzMDF1dmZuYg%3D%3D&utm_source=qr" class="btn ghost" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="container section">
+    <div class="grid">
+      <div class="card">
+        <h3>Kimlar uchun?</h3>
+        <div class="list muted">
+          <div>— Biznes egasi</div>
+          <div>— Ekspertlar</div>
+          <div>— Kasb / hunar egalari</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Ko‘rib chiqish</h3>
+        <div class="list muted">
+          <div>— So‘rov 48 soatgacha ko‘rib chiqiladi</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="form" class="container section">
+    <h3 style="margin:0 0 8px">Navbatga yoziling — 3 daqiqa</h3>
+
+    <form id="leadForm" class="form-area" autocomplete="on" novalidate>
+      <input type="text" name="website" id="hp" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <div class="row cols-2">
+        <div>
+          <label for="name">Ism-familya *</label>
+          <input id="name" name="name" type="text" required placeholder="Ism Familya">
+          <div class="error" id="err-name">Ism-familya majburiy</div>
+        </div>
+        <div>
+          <label for="phone">Telefon *</label>
+          <input id="phone" name="phone" type="tel" required pattern="^\+?\d[\d\s\-]{6,}$" placeholder="+998 90 123 45 67">
+          <div class="error" id="err-phone">Telefonni to‘g‘ri kiriting</div>
+        </div>
+      </div>
+
+      <div class="row cols-2">
+        <div>
+          <label for="telegram">Telegram @user *</label>
+          <input id="telegram" name="telegram" type="text" required pattern="^@.+" placeholder="@username">
+          <div class="error" id="err-telegram">Masalan, @xurshidbek</div>
+        </div>
+        <div>
+          <label for="profile">Instagram @user yoki link *</label>
+          <input id="profile" name="profile" type="text" required placeholder="@username yoki https://instagram.com/username">
+          <div class="error" id="err-profile">Instagram @ yoki link kiriting</div>
+        </div>
+      </div>
+
+      <div class="row cols-2">
+        <div>
+          <label for="role">Yo‘nalish / kasb *</label>
+          <input id="role" name="role" type="text" required placeholder="Mebel ustasi, barber, santexnik...">
+          <div class="error" id="err-role">Yo‘nalish majburiy</div>
+        </div>
+        <div>
+          <label for="income">Oylik o‘rtacha daromad (USD) *</label>
+          <select id="income" name="income" required>
+            <option value="">Tanlang</option>
+            <option>0–1000$</option>
+            <option>1000$–5000$</option>
+            <option>5000$+</option>
+          </select>
+          <div class="error" id="err-income">Daromad diapazonini tanlang</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <label>Maqsad(lar) *</label>
+        <div id="goals">
+          <label class="check"><input type="checkbox" name="goals" value="Sotuvlarni oshirish"><span>Sotuvlarni oshirish</span></label>
+          <label class="check"><input type="checkbox" name="goals" value="Narxni ko‘tarish"><span>Narxni ko‘tarish</span></label>
+          <label class="check"><input type="checkbox" name="goals" value="Ko‘proq so‘rov (DM/ariza)"><span>Ko‘proq so‘rov (DM/ariza)</span></label>
+          <label class="check"><input type="checkbox" name="goals" value="Kontent tizimi (reels rejimi)"><span>Kontent tizimi (reels rejimi)</span></label>
+        </div>
+        <div class="error" id="err-goals">Hech bo‘lmaganda bitta maqsadni tanlang</div>
+      </div>
+
+      <div class="row cols-2">
+        <div>
+          <label for="contact">Aloqa usuli *</label>
+          <select id="contact" name="contact" required>
+            <option value="">Tanlang</option>
+            <option>Telegram</option>
+            <option>Qo‘ng‘iroq</option>
+            <option>Email</option>
+          </select>
+          <div class="error" id="err-contact">Aloqa usulini tanlang</div>
+        </div>
+        <div id="slotWrap" class="hidden">
+          <label for="slot">Qaysi vaqt qulay?</label>
+          <select id="slot" name="slot">
+            <option value="">Tanlang</option>
+            <option>11:00–13:00</option>
+            <option>14:00–18:00</option>
+            <option>19:00–21:00</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="district">Manzil / tuman (ixtiyoriy)</label>
+        <input id="district" name="district" type="text" placeholder="Toshkent, Chilonzor">
+      </div>
+
+      <div class="row">
+        <label for="wishes">Hohishlar (ixtiyoriy, 1–2 jumla)</label>
+        <textarea id="wishes" name="wishes" maxlength="200" placeholder="Qisqa yozing: masalan, 1 oyda 3 ta mijoz va profilni tartibga keltirish."></textarea>
+        <div class="muted" style="font-size:12px">200 belgigacha</div>
+      </div>
+
+      <div class="actions">
+        <button id="submitBtn" class="btn" type="submit">Yuborish</button>
+        <span class="muted" style="font-size:13px">Yuborilgach: <em>“Qabul qilindi✅ 24 soat ichida shaxsan o'zim aloqaga chiqaman”</em></span>
+      </div>
+
+      <div id="formError" class="error" style="display:none">Xatolik yuz berdi. Keyinroq urinib ko‘ring.</div>
+      <div id="formSuccess" class="success hidden">Qabul qilindi✅ 24 soat ichida shaxsan o'zim aloqaga chiqaman</div>
+      <div class="muted" style="font-size:12px">Yuborish tugmasini bosish orqali ma’lumotlar qayta ishlanishiga rozilik bildirasiz.</div>
+    </form>
+  </section>
+
+  <div class="sticky-cta">
+    <div class="inner">
+      <span class="txt">Savollar qoldimi?</span>
+      <a href="#form" class="btn">So‘rovnomani ochish</a>
+      <a class="btn ghost" href="https://t.me/Xurshidbek_foziljonov" target="_blank" rel="noopener">Telegram</a>
+    </div>
+  </div>
+
+  <footer class="footer">
+    © <span id="y"></span> Xurshidbek · Personal Branding
+  </footer>
+
+  <script>
+    const ENDPOINT = "https://script.google.com/macros/s/AKfycbzBWBuPIJ5NQpmnQLT5gSINW7KnUXaRoKTSRfvDdncdUeBWfNAl6j2QSwOJMt2_JXkT2A/exec";
+    const form = document.getElementById('leadForm');
+    const btn = document.getElementById('submitBtn');
+    const ok = document.getElementById('formSuccess');
+    const errBox = document.getElementById('formError');
+    const contact = document.getElementById('contact');
+    const slotWrap = document.getElementById('slotWrap');
+    const profile = document.getElementById('profile');
+
+    contact.addEventListener('change', ()=>{ slotWrap.classList.toggle('hidden', contact.value !== 'Qo‘ng‘iroq'); });
+
+    function qs(id){return document.getElementById(id)}
+    function showErr(id, show){ const el = qs(id); if(!el) return; el.style.display = show ? 'block':'none' }
+
+    function validInstagram(v){
+      const s = (v||'').trim();
+      if (!s) return false;
+      if (s.startsWith('@')) return s.length > 1;
+      if (/^https?:\/\/(www\.)?instagram\.com\/[A-Za-z0-9._-]+\/?(\?.*)?$/.test(s)) return true;
+      return false;
+    }
+
+    function validate(){
+      let valid = true;
+      const required = [
+        ['name','err-name'],
+        ['phone','err-phone'],
+        ['telegram','err-telegram'],
+        ['role','err-role'],
+        ['income','err-income'],
+        ['contact','err-contact']
+      ];
+      required.forEach(([f,eid])=>{
+        const el = qs(f);
+        const v = (el.value||'').trim();
+        const okk = el.checkValidity ? el.checkValidity() : v.length>0;
+        const pass = v.length>0 && okk!==false;
+        showErr(eid, !pass);
+        if(!pass) valid=false;
+      });
+
+      const ipass = validInstagram(profile.value);
+      showErr('err-profile', !ipass);
+      if(!ipass) valid=false;
+
+      const goals = Array.from(document.querySelectorAll('input[name="goals"]:checked'));
+      showErr('err-goals', goals.length===0);
+      if(goals.length===0) valid=false;
+
+      if ((qs('hp').value||'').trim().length>0) return false; // honeypot
+      return valid;
+    }
+
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      errBox.style.display='none';
+      ok.classList.add('hidden');
+      if(!validate()) return;
+      btn.disabled = true; btn.textContent = "Yuborilyapti...";
+      const fd = new FormData(form);
+      const params = new URLSearchParams(window.location.search);
+      fd.append('utm_source', params.get('utm_source') || '');
+      fd.append('utm_medium', params.get('utm_medium') || '');
+      fd.append('utm_campaign', params.get('utm_campaign') || '');
+      fd.append('referer', document.referrer || '');
+      fd.append('ua', navigator.userAgent || '');
+      try{
+        const res = await fetch(ENDPOINT, { method:'POST', body: fd });
+        if(!res.ok) throw new Error('Network');
+        ok.classList.remove('hidden');
+        form.querySelectorAll('input, select, textarea, button').forEach(el=>{ if(el.id!=='submitBtn') el.disabled = true; });
+        btn.classList.add('hidden');
+      }catch(e){ errBox.style.display='block'; }
+      finally{ btn.disabled=false; btn.textContent = "Yuborish"; }
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth',block:'start'}); }
+      });
+    });
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
